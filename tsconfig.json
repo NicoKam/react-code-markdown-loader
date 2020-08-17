@@ -1,37 +1,33 @@
 {
   "compilerOptions": {
-    "outDir": "build/dist",
-    "module": "ESNext",
+    "outDir": "lib",
+    "module": "commonjs",
     "target": "ESNext",
     "lib": ["ESNext", "dom"],
     "sourceMap": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "rootDir": ".",
+    "rootDir": "./src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
-    "baseUrl": "./",
+    "esModuleInterop": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "@ali-whale/*": ["packages/*/src/index"]
     }
   },
   "include":[
-    "./**/*", "index.js"
+    "./src/**/*", "index.js"
   ],
   "exclude": [
     "node_modules",
     "build",
     "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts",
-    "tslint:latest",
-    "tslint-config-prettier"
+    "jest"
   ]
 }

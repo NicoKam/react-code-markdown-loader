@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack",
+    "watch": "tsc -p ./tsconfig.json --watch"
   },
   "author": "",
   "license": "ISC",

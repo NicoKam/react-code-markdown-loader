@@ -1,21 +1,30 @@
-var unified = require('unified');
-var markdown = require('remark-parse');
-var remark2rehype = require('remark-rehype');
-var html = require('rehype-stringify');
-var report = require('vfile-reporter');
-const marked = require('marked');
-const toJSX = require('@mapbox/hast-util-to-jsx');
-const link = require('./link');
-const id = require('./id');
+import DocUtils from './utils/DocUtils';
+
+import unified from 'unified';
+import markdown from 'remark-parse';
+import remark2rehype from 'remark-rehype';
+import html from 'rehype-stringify';
+import report from 'vfile-reporter';
+import marked from 'marked';
+import toJSX from '@mapbox/hast-util-to-jsx';
+import link from './link';
+import id from './id';
+import meta from './meta';
 
 const transformer = require('@umijs/preset-dumi/lib/transformer').default;
 
+function docUtils() {
+  this.docUtils = new DocUtils();
+  this.docUtils.addImport('react', 'React');
+  this.docUtils.addImport('react-router-dom', undefined, ['Link']);
+}
+
 function compiler() {
-  this.Compiler = function (ast) {
+  this.Compiler = (ast) => {
     // console.log(JSON.stringify(ast, null, '  '));
     let jsx = toJSX(ast, { wrapper: 'fragment' }) || '';
-    
-    return jsx;
+    this.docUtils.pushCode(`export default () => (${jsx})`);
+    return this.docUtils.toString();
   };
 }
 
@@ -24,14 +33,15 @@ module.exports = function (content, context) {
 
   // const result = transformer.markdown(content, this.resource);
 
-
   // console.log(Object.keys(result),result);
 
   unified()
+    .use(docUtils)
     .use(markdown)
+    .use(id)
     .use(remark2rehype)
     .use(link)
-    .use(id)
+    .use(meta)
     // .use(doc)
     // .use(format)
     // .use(html)

@@ -63,7 +63,7 @@ const config = {
       {
         test: /\.md?$/,
         // exclude: /node_modules/,
-        use: [path.resolve(__dirname, './src/markdown-loader.js')],
+        use: [path.resolve(__dirname, './lib/markdown-loader.js')],
         // use: [babelLoader, require.resolve(__dirname, '@umijs/preset-dumi/lib/loader')],
       },
       // {
