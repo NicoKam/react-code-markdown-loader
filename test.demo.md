@@ -1,7 +1,7 @@
----
+```meta
 title: ast
 test: aaa
----
+```
 
 # 标题党
 

@@ -21,12 +21,12 @@ const importStatementToString = (importStatement: ImportStatement): string => {
   const specifier: string[] = [];
   if (defaultSpecifier) specifier.push(defaultSpecifier);
   if (namespaceSpecifier.length > 0) specifier.push(`{ ${namespaceSpecifier.map(aliasNameToString)} }`);
-  return `import ${specifier.join(', ')} from ${sourcePath}`;
+  return `import ${specifier.join(', ')} from '${sourcePath}';`;
 };
 
 const exportStatementToString = (exportStatement: aliasName[] = []) => {
   if (exportStatement.length > 0) {
-    return `export { ${exportStatement.map(aliasNameToString)} }`;
+    return `export { ${exportStatement.map(aliasNameToString)} };`;
   }
   return '';
 };
@@ -80,9 +80,9 @@ class DocUtils {
 
   toString = () => {
     return `${this.importStatement.map(importStatementToString).join('\n')}
-    ${this.code.join('\n')}
-    ${exportStatementToString(this.exportStatement)}
-    ${this.exportDefaultStatement ? `export default ${this.exportDefaultStatement};` : ''}
+${this.code.join('\n')}
+${exportStatementToString(this.exportStatement)}
+${this.exportDefaultStatement ? `export default ${this.exportDefaultStatement};` : ''}
     `;
   };
 }

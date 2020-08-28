@@ -37,11 +37,11 @@ module.exports = function (content, context) {
 
   unified()
     .use(docUtils)
+    .use(meta)
     .use(markdown)
     .use(id)
     .use(remark2rehype)
     .use(link)
-    .use(meta)
     // .use(doc)
     // .use(format)
     // .use(html)
