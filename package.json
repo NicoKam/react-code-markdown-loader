@@ -2,7 +2,7 @@
   "name": "react-code-markdown-loader",
   "version": "0.0.2",
   "description": "",
-  "main": "lib/index.js",
+  "main": "lib/markdown.js",
   "files": [
     "lib"
   ],
