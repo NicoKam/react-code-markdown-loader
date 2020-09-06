@@ -1,4 +1,4 @@
-# markdown-code-loader
+# react-code-markdown-loader
 
 这是一个`webpack-loader`，它能够将`markdown`文件解析为React组件。
 
