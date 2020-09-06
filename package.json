@@ -21,6 +21,7 @@
     "compile": "k-tools compile",
     "prepublishOnly": "npm run compile",
     "pub": "npm publish --registry=https://registry.npmjs.org/ && git push",
+    "ppub": "npm version patch && npm run pub",
     "watch": "tsc -p ./tsconfig.json --watch"
   },
   "author": "",
