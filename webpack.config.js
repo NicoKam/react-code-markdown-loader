@@ -42,7 +42,7 @@ const config = {
   // devtool: ifDev('source-map', false),
   mode: 'development',
   entry: {
-    main: './index',
+    main: './test/index',
   },
   output: {
     publicPath: '/',

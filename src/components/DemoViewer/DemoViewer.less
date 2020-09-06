@@ -1,0 +1,69 @@
+@prefix: demo-viewer;
+@demo-panel-padding: 10px;
+
+.@{prefix} {
+  border: 1px solid #EEEEEE;
+  background-color: #FFFFFF;
+  transition: border-color 300ms, box-shadow 300ms;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 0 0px #0091FF;
+
+
+  &:hover,
+  &-expand {
+    border-color: #CCCCCC;
+    box-shadow: 0 0 5px #0091FF;
+  }
+
+
+  &- {
+    &title {
+      padding: @demo-panel-padding;
+      //border-bottom: 1px solid #CCCCCC;
+      //background-color: #f6f6f6;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    &detail {
+      padding: 5px 5px 5px @demo-panel-padding+5px;
+      //border-bottom: 1px solid #CCCCCC;
+      //background-color: #fcfcfc;
+      font-size: 0.8em;
+      color: #999999;
+    }
+
+    &content {
+      padding: @demo-panel-padding;
+      //border-bottom: 1px solid #CCCCCC;
+
+      .ant-form:not(.ant-form-inline):not(.ant-form-vertical) {
+        max-width: 600px;
+      }
+    }
+
+    &source-code-header {
+      display: flex;
+    }
+
+
+    &collapse {
+      &.ant-collapse-borderless {
+        background-color: transparent;
+      }
+
+      &.ant-collapse > .ant-collapse-item {
+        > .ant-collapse-header {
+          background-color: transparent;
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+
+        > .ant-collapse-content {
+          background-color: rgba(245, 242, 240, 0.1);
+        }
+      }
+    }
+  }
+}

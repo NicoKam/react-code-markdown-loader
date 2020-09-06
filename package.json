@@ -1,15 +1,38 @@
 {
-  "name": "webpack-loader-test",
-  "version": "1.0.0",
+  "name": "react-code-markdown-loader",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "start": "webpack",
+    "debug": "node --inspect-brk ./node_modules/.bin/webpack",
+    "compile": "k-tools compile",
+    "prepublishOnly": "npm run compile",
+    "pub": "npm publish --registry=https://registry.npmjs.org/ && git push",
     "watch": "tsc -p ./tsconfig.json --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mapbox/hast-util-to-jsx": "^1.0.0",
+    "change-case": "^4.1.1",
+    "clipboard-polyfill": "^3.0.1",
+    "glob": "^7.1.6",
+    "hast-util-has-property": "^1.0.4",
+    "hast-util-is-element": "^1.0.4",
+    "hast-util-to-string": "^1.0.4",
+    "prefix-classnames": "0.0.3",
+    "remark-frontmatter": "^2.0.0",
+    "remark-parse": "^8.0.3",
+    "remark-rehype": "^7.0.0",
+    "slash": "^3.0.0",
+    "unified": "^9.1.0",
+    "yaml": "^1.10.0"
+  },
+  "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
@@ -24,24 +47,18 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@mapbox/hast-util-to-jsx": "^1.0.0",
-    "@umijs/preset-dumi": "^1.0.34",
+    "@types/node": "^14.6.4",
+    "@types/react": "^16.9.49",
+    "antd": "^4.6.2",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
-    "hast-util-has-property": "^1.0.4",
-    "hast-util-is-element": "^1.0.4",
-    "hast-util-to-string": "^1.0.4",
-    "marked": "^1.1.1",
+    "k-tools": "^0.2.2",
     "raw-loader": "^4.0.1",
-    "rehype-document": "^5.1.0",
-    "rehype-format": "^3.1.0",
-    "rehype-stringify": "^8.0.0",
-    "remark-parse": "^8.0.3",
-    "remark-rehype": "^7.0.0",
-    "slash": "^3.0.0",
-    "unified": "^9.1.0",
-    "vfile-reporter": "^6.0.1",
+    "react": "^16.13.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
   }
 }

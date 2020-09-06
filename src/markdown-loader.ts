@@ -1,17 +1,18 @@
-import DocUtils from './utils/DocUtils';
-
-import unified from 'unified';
 import markdown from 'remark-parse';
+import frontmatter from 'remark-frontmatter';
 import remark2rehype from 'remark-rehype';
-import html from 'rehype-stringify';
-import report from 'vfile-reporter';
-import marked from 'marked';
-import toJSX from '@mapbox/hast-util-to-jsx';
-import link from './link';
+import slash from 'slash';
+import unified from 'unified';
+import demoCode from './demoCode';
+import demoCompiler from './demoCompiler';
 import id from './id';
+import link from './link';
+import mdCompiler from './mdCompiler';
 import meta from './meta';
-
-const transformer = require('@umijs/preset-dumi/lib/transformer').default;
+import scanDemo from './scanDemo';
+import DocUtils from './utils/DocUtils';
+import raw2html from './raw2html';
+import pre from './pre';
 
 function docUtils() {
   this.docUtils = new DocUtils();
@@ -19,39 +20,52 @@ function docUtils() {
   this.docUtils.addImport('react-router-dom', undefined, ['Link']);
 }
 
-function compiler() {
-  this.Compiler = (ast) => {
-    // console.log(JSON.stringify(ast, null, '  '));
-    let jsx = toJSX(ast, { wrapper: 'fragment' }) || '';
-    this.docUtils.pushCode(`export default () => (${jsx})`);
-    return this.docUtils.toString();
-  };
+function checkIsDemo(sourcePath) {
+  const p = slash(sourcePath);
+  return p.substr(0, p.lastIndexOf('/')).endsWith('/demo');
 }
 
 module.exports = function (content, context) {
-  // console.log(marked(content.toString()));
+  const isDemo = checkIsDemo(this.resourcePath);
 
-  // const result = transformer.markdown(content, this.resource);
+  const callback = this.async();
 
-  // console.log(Object.keys(result),result);
+  const { resourcePath } = this;
 
-  unified()
+  const u = unified()
+    .use(function () {
+      this.resourcePath = resourcePath;
+    })
     .use(docUtils)
-    .use(meta)
     .use(markdown)
-    .use(id)
-    .use(remark2rehype)
-    .use(link)
-    // .use(doc)
-    // .use(format)
-    // .use(html)
-    .use(compiler)
-    .process(content, function (err, file) {
-      console.error(report(err || file));
-      console.log(String(file));
-    });
-  this.callback(null, 'export default ""');
-  // this.callback(null, result.content);
-};
+    .use(frontmatter)
+    .use(meta);
 
-module.exports.raw = true;
+  if (isDemo) {
+    /* Demo的解析 */
+
+    u.use(demoCode)
+      .use(remark2rehype, { allowDangerousHtml: true })
+      .use(raw2html)
+      .use(pre)
+      .use(demoCompiler)
+      .process(content, (err, file) => {
+        // console.log(String(file));
+        callback(err, String(file));
+      });
+  } else {
+    /* 普通文档的解析 */
+    u.use(remark2rehype, { allowDangerousHtml: true })
+      .use(raw2html)
+      .use(pre)
+      .use(id)
+      .use(link)
+      .use(scanDemo(this.resourcePath))
+      .use(mdCompiler)
+      .process(content, (err, file) => {
+        // console.log(String(file));
+        callback(err, String(file));
+      });
+  }
+
+};
