@@ -6,6 +6,15 @@
   "files": [
     "lib"
   ],
+  "keywords": [
+    "react",
+    "markdown",
+    "md",
+    "code",
+    "preview",
+    "demo",
+    "loader"
+  ],
   "scripts": {
     "start": "webpack",
     "debug": "node --inspect-brk ./node_modules/.bin/webpack",
