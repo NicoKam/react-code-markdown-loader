@@ -40,9 +40,9 @@ const PREFIX = 'demo-panel';
 const px = pc(PREFIX);
 
 const DemoViewer: React.FC<DemoViewerProps> = (props) => {
-  const { className, meta, detail, contentProps, customPanelStyle, src, children, ...otherProps } = props;
+  const { className, meta = {}, detail, contentProps, customPanelStyle, src, children, ...otherProps } = props;
   const [collapse, setCollapse] = useState<string[]>([]);
-  const { title } = meta;
+  const { title = '无标题' } = meta;
 
   const handleClick = useCallback(
     (e) => {
