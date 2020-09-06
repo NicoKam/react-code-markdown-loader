@@ -24,7 +24,7 @@
     "hast-util-has-property": "^1.0.4",
     "hast-util-is-element": "^1.0.4",
     "hast-util-to-string": "^1.0.4",
-    "prefix-classnames": "0.0.3",
+    "prefix-classnames": "^0.0.3",
     "remark-frontmatter": "^2.0.0",
     "remark-parse": "^8.0.3",
     "remark-rehype": "^7.0.0",
