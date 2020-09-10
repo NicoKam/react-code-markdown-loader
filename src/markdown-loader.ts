@@ -3,6 +3,7 @@ import frontmatter from 'remark-frontmatter';
 import remark2rehype from 'remark-rehype';
 import slash from 'slash';
 import unified from 'unified';
+import loaderUtils from 'loader-utils';
 import demoCode from './demoCode';
 import demoCompiler from './demoCompiler';
 import id from './id';
@@ -26,6 +27,10 @@ function checkIsDemo(sourcePath) {
 }
 
 module.exports = function (content, context) {
+  const options = loaderUtils.getOptions(this);
+
+  const { markdownWrapper } = options;
+
   const isDemo = checkIsDemo(this.resourcePath);
 
   const callback = this.async();
@@ -35,8 +40,16 @@ module.exports = function (content, context) {
   const u = unified()
     .use(function () {
       this.resourcePath = resourcePath;
+      this.options = {
+        markdownWrapper,
+      };
     })
     .use(docUtils)
+    .use(function () {
+      if (markdownWrapper) {
+        this.docUtils.addImport(markdownWrapper, 'MarkdownWrapper');
+      }
+    })
     .use(markdown)
     .use(frontmatter)
     .use(meta);
@@ -67,5 +80,4 @@ module.exports = function (content, context) {
         callback(err, String(file));
       });
   }
-
 };

@@ -5,6 +5,8 @@ function hasReactImport(code = '') {
 }
 
 export default function () {
+  const { markdownWrapper } = this.options;
+
   let md;
   this.Compiler = () => {
     const { demoCode } = this;
@@ -24,5 +26,8 @@ ${metaCode}`;
   return (ast) => {
     md = toJSX(ast, { wrapper: 'fragment' }) || '';
     md = md.replace(/dangerously-set-inner-h-t-m-l/g, 'dangerouslySetInnerHTML');
+    if(markdownWrapper){
+      md = `<MarkdownWrapper>${md}</MarkdownWrapper>`;
+    }
   };
 }
