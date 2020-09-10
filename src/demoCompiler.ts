@@ -1,3 +1,4 @@
+import { toString } from 'hast-util-to-string';
 import toJSX from '@mapbox/hast-util-to-jsx';
 
 function hasReactImport(code = '') {
@@ -17,7 +18,8 @@ export default function () {
     const codeCode = `export const code = (${JSON.stringify(code)});`;
     const importReact = hasReactImport(code) ? '' : "import React from 'react';";
 
-    return `${importReact}
+    return `${this.docUtils.toString()}
+${importReact}
 ${code || ''}
 ${codeCode}
 ${mdCode}
