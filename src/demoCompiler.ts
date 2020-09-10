@@ -18,7 +18,7 @@ export default function () {
     const codeCode = `export const code = (${JSON.stringify(code)});`;
     const importReact = hasReactImport(code) ? '' : "import React from 'react';";
 
-    return `${this.docUtils.toString()}
+    return `${markdownWrapper ? `import MarkdownWrapper from '${markdownWrapper}';` : ''}
 ${importReact}
 ${code || ''}
 ${codeCode}
@@ -28,7 +28,7 @@ ${metaCode}`;
   return (ast) => {
     md = toJSX(ast, { wrapper: 'fragment' }) || '';
     md = md.replace(/dangerously-set-inner-h-t-m-l/g, 'dangerouslySetInnerHTML');
-    if(markdownWrapper){
+    if (markdownWrapper) {
       md = `<MarkdownWrapper>${md}</MarkdownWrapper>`;
     }
   };
