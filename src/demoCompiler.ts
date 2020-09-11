@@ -14,9 +14,9 @@ export default function () {
     const allCode = demoCode
       .slice()
       .reverse()
-      .filter(({ type, value }) => {
+      .filter(({ type, content }) => {
         if (!code && isSourceCode(type)) {
-          code = value;
+          code = content;
           return false;
         }
         return true;
@@ -37,6 +37,7 @@ ${mdCode}
 ${allCodeCode}
 ${metaCode}`;
   };
+
   return (ast) => {
     md = toJSX(ast, { wrapper: 'fragment' }) || '';
     md = md.replace(/dangerously-set-inner-h-t-m-l/g, 'dangerouslySetInnerHTML');
