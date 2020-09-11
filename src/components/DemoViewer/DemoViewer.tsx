@@ -24,6 +24,9 @@ const renderElement = (title: any) => {
   if (React.isValidElement(title)) {
     return title;
   }
+  if(typeof title === 'object' && title['zh-CN']){
+    return title['zh-CN'];
+  }
   return String(title);
 };
 
@@ -43,7 +46,7 @@ export interface DemoViewerProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;
 
   /* 代码列表 */
-  codeList: { type: string; content: string }[];
+  sources: { type: string; content: string }[];
 }
 
 const PREFIX = 'demo-panel';
@@ -58,7 +61,7 @@ const DemoViewer: React.FC<DemoViewerProps> = (props) => {
     customPanelStyle,
     src,
     children,
-    codeList,
+    sources,
     ...otherProps
   } = props;
   const [collapse, setCollapse] = useState<string[]>([]);
@@ -94,7 +97,7 @@ const DemoViewer: React.FC<DemoViewerProps> = (props) => {
           }
           style={customPanelStyle}
         >
-          {codeList.map(({ type, content }, index) => (
+          {sources.map(({ type, content }, index) => (
             <React.Fragment key={index}>
               <CodePreview className={px('code-viewer')} language={type}>
                 {content}
@@ -111,7 +114,7 @@ const DemoViewer: React.FC<DemoViewerProps> = (props) => {
 
 DemoViewer.defaultProps = {
   className: '',
-  codeList: [],
+  sources: [],
 };
 
 export default DemoViewer;

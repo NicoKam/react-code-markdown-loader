@@ -7,8 +7,6 @@ import ref from './ref';
 
 const glob = promisify(_glob);
 
-
-
 export default (sourcePath) =>
   function () {
     return async (ast) => {
@@ -21,18 +19,19 @@ export default (sourcePath) =>
         ast.children.push({
           type: 'element',
           tagName: 'DemoViewer',
-          children: [
-            {
-              type: 'element',
-              tagName: `${name}.default`,
-              properties:{},
-            },
-          ],
+          // children: [
+          //   {
+          //     type: 'element',
+          //     tagName: `${name}.default`,
+          //     properties:{},
+          //   },
+          // ],
           properties: {
             meta: ref(`${name}.meta`),
             detail: ref(`${name}.md`),
             src: ref(`${name}.code`),
-            codeList: ref(`${name}.allCode`),
+            sources: ref(`${name}.allCode`),
+            children: ref(`${name}.default && <${name}.default />`),
           },
         });
       });
