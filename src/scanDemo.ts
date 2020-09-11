@@ -32,6 +32,7 @@ export default (sourcePath) =>
             meta: ref(`${name}.meta`),
             detail: ref(`${name}.md`),
             src: ref(`${name}.code`),
+            codeList: ref(`${name}.allCode`),
           },
         });
       });

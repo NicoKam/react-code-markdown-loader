@@ -20,6 +20,13 @@ const CopyIcon = (props) => (
   </svg>
 );
 
+const renderElement = (title: any) => {
+  if (React.isValidElement(title)) {
+    return title;
+  }
+  return String(title);
+};
+
 export interface DemoViewerProps extends React.HTMLAttributes<HTMLDivElement> {
   /* 描述 */
   meta?: {
@@ -34,13 +41,26 @@ export interface DemoViewerProps extends React.HTMLAttributes<HTMLDivElement> {
   customPanelStyle?: CSSProperties;
   /* 源码 */
   src?: string;
+
+  /* 代码列表 */
+  codeList: { type: string; content: string }[];
 }
 
 const PREFIX = 'demo-panel';
 const px = pc(PREFIX);
 
 const DemoViewer: React.FC<DemoViewerProps> = (props) => {
-  const { className, meta = {}, detail, contentProps, customPanelStyle, src, children, ...otherProps } = props;
+  const {
+    className,
+    meta = {},
+    detail,
+    contentProps,
+    customPanelStyle,
+    src,
+    children,
+    codeList,
+    ...otherProps
+  } = props;
   const [collapse, setCollapse] = useState<string[]>([]);
   const { title = '无标题' } = meta;
 
@@ -54,8 +74,8 @@ const DemoViewer: React.FC<DemoViewerProps> = (props) => {
   );
   return (
     <div className={`${PREFIX} ${px({ expand: collapse.length > 0 })} ${className}`} {...otherProps}>
-      {title && <div className={px('title')}>{title}</div>}
-      {detail && <div className={px('detail')}>{detail}</div>}
+      {title && <div className={px('title')}>{renderElement(title)}</div>}
+      {detail && <div className={px('detail')}>{renderElement(detail)}</div>}
       <div className={px('content')} {...contentProps}>
         {children}
       </div>
@@ -74,7 +94,15 @@ const DemoViewer: React.FC<DemoViewerProps> = (props) => {
           }
           style={customPanelStyle}
         >
-          <CodePreview style={{ padding: 10 }}>{src}</CodePreview>
+          {codeList.map(({ type, content }, index) => (
+            <React.Fragment key={index}>
+              <CodePreview className={px('code-viewer')} language={type}>
+                {content}
+              </CodePreview>
+              <div className={px('hr')}></div>
+            </React.Fragment>
+          ))}
+          <CodePreview className={px('code-viewer')}>{src}</CodePreview>
         </Collapse.Panel>
       </Collapse>
     </div>
@@ -83,6 +111,7 @@ const DemoViewer: React.FC<DemoViewerProps> = (props) => {
 
 DemoViewer.defaultProps = {
   className: '',
+  codeList: [],
 };
 
 export default DemoViewer;

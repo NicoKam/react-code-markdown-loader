@@ -64,6 +64,8 @@ const config = {
         test: /\.md?$/,
         // exclude: /node_modules/,
         use: [
+          path.resolve(__dirname, './test/output-loader.js'),
+          // 'babel-loader',
           {
             loader: path.resolve(__dirname, './lib/markdown-loader.js'),
             options: {

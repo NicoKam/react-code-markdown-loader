@@ -8,6 +8,12 @@ title:
 
 Demo 描述
 
+```css
+.title{
+  font-size:20px;
+}
+```
+
 ```jsx
 import AlertExplain from "@ali-whale/alert-explain";
 
@@ -25,4 +31,3 @@ class Demo extends React.Component {
 
 export default Demo;
 ```
-<code src="../index.js" />

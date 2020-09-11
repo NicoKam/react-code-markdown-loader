@@ -2,17 +2,25 @@ import { resolve, dirname } from 'path';
 import visit from 'unist-util-visit';
 import { readFile as _readFile } from 'fs';
 import { promisify } from 'util';
+import { isSourceCode } from './common';
 
 const readFile = promisify(_readFile);
 
 export default function () {
   this.demoCode = [];
   return (ast): Promise<void> => {
+    const removeIndex = [];
     /* 解析嵌入的代码 */
     visit(ast, 'code', (node, index) => {
-      if (node.lang === 'jsx' || node.lang === 'css' || node.lang === 'less') {
-        this.demoCode.push(node.value);
+      if (isSourceCode(String(node.lang))) {
+        this.demoCode.push({ content: node.value, type: node.lang });
+      } else {
+        this.demoCode.push({ content: node.value, type: node.lang });
       }
+      removeIndex.push(index);
+    });
+
+    removeIndex.reverse().forEach((index) => {
       ast.children.splice(index, 1);
     });
 
@@ -30,7 +38,7 @@ export default function () {
               const srcPath = resolve(dirname(this.resourcePath), matched[2]);
               readFile(srcPath)
                 .then((content) => {
-                  this.demoCode.push(content.toString());
+                  this.demoCode.push({ content: content.toString(), type: 'js' });
                   done();
                 })
                 .catch(() => {

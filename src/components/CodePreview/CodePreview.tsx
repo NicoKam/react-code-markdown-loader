@@ -14,10 +14,11 @@ function encodeHtml(str: string = '') {
 }
 export interface CodePreviewProps extends React.HTMLAttributes<HTMLPreElement> {
   children: string;
+  language?: string;
 }
 
 const CodePreview: React.FC<CodePreviewProps> = (props) => {
-  const { children, style, ...otherProps } = props;
+  const { children, style, language, ...otherProps } = props;
   const divRef = useRef();
   useEffect(() => {
     if (window.Prism) window.Prism.highlightElement(divRef.current);
@@ -30,13 +31,18 @@ const CodePreview: React.FC<CodePreviewProps> = (props) => {
       }}
       {...otherProps}
     >
-      <code className="language-jsx" ref={divRef} dangerouslySetInnerHTML={{ __html: encodeHtml(children || '') }} />
+      <code
+        className={'language-' + language}
+        ref={divRef}
+        dangerouslySetInnerHTML={{ __html: encodeHtml(children || '') }}
+      />
     </pre>
   );
 };
 
 CodePreview.defaultProps = {
   className: '',
+  language: 'jsx',
 };
 
 export default CodePreview;

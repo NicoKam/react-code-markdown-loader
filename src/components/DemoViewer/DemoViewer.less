@@ -2,20 +2,18 @@
 @demo-panel-padding: 10px;
 
 .@{prefix} {
-  border: 1px solid #EEEEEE;
-  background-color: #FFFFFF;
+  border: 1px solid #eeeeee;
+  background-color: #ffffff;
   transition: border-color 300ms, box-shadow 300ms;
   margin-top: 30px;
   margin-bottom: 60px;
-  box-shadow: 0 0 0px #0091FF;
-
+  box-shadow: 0 0 0px #0091ff;
 
   &:hover,
   &-expand {
-    border-color: #CCCCCC;
-    box-shadow: 0 0 5px #0091FF;
+    border-color: #cccccc;
+    box-shadow: 0 0 5px #0091ff;
   }
-
 
   &- {
     &title {
@@ -47,7 +45,6 @@
       display: flex;
     }
 
-
     &collapse {
       &.ant-collapse-borderless {
         background-color: transparent;
@@ -64,6 +61,13 @@
           background-color: rgba(245, 242, 240, 0.1);
         }
       }
+    }
+
+    &hr {
+      border-top: 1px solid #dddddd;
+    }
+    &code-viewer {
+      padding: 10px;
     }
   }
 }
