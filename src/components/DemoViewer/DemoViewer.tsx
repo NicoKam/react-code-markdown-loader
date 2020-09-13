@@ -49,7 +49,7 @@ export interface DemoViewerProps extends React.HTMLAttributes<HTMLDivElement> {
   sources: { type: string; content: string }[];
 }
 
-const PREFIX = 'demo-panel';
+const PREFIX = 'demo-viewer';
 const px = pc(PREFIX);
 
 const DemoViewer: React.FC<DemoViewerProps> = (props) => {
