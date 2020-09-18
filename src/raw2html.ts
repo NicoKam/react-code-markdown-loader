@@ -4,7 +4,7 @@ import visit from 'unist-util-visit';
 import ref from './ref';
 
 function createRandomImgName(src = ''): string {
-  return `img_${src.replace(/[^a-zA-Z\d-]/g, '_')}`;
+  return `img_${src.replace(/[^a-zA-Z\d_]/g, '_')}`;
 }
 
 function isAbsolutePath(path: string = '') {
