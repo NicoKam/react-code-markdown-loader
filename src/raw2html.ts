@@ -7,6 +7,13 @@ function createRandomImgName(src = ''): string {
   return `img_${src.replace(/[^a-zA-Z\d-]/g, '_')}`;
 }
 
+function isAbsolutePath(path: string = '') {
+  if (path.startsWith('http://')) return true;
+  if (path.startsWith('https://')) return true;
+  if (path.startsWith('/')) return true;
+  return false;
+}
+
 export default function () {
   const { docUtils } = this;
   return (ast) => {
@@ -20,7 +27,7 @@ export default function () {
           /* 查找到img */
           if (node.tagName === 'img') {
             const { src } = node.properties || {};
-            if (src) {
+            if (src && !isAbsolutePath(src)) {
               const name = createRandomImgName(src);
               docUtils.addImport(src, name);
               node.properties.src = ref(name);
