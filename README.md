@@ -11,3 +11,7 @@
 ### markdownWrapper
 
 自定义Markdown包裹组件，可用自定义样式覆盖
+
+### autoScanDemo
+
+是否自动扫描demo目录的文档并自动加入解析
