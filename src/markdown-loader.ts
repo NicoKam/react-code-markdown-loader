@@ -15,10 +15,12 @@ import DocUtils from './utils/DocUtils';
 import raw2html from './raw2html';
 import pre from './pre';
 
-function docUtils() {
+function docUtils(doNotImport = false) {
   this.docUtils = new DocUtils();
-  this.docUtils.addImport('react', 'React');
-  this.docUtils.addImport('react-router-dom', undefined, ['Link']);
+  if(!doNotImport){
+    this.docUtils.addImport('react', 'React');
+    this.docUtils.addImport('react-router-dom', undefined, ['Link']);
+  }
 }
 
 function checkIsDemo(sourcePath) {
@@ -42,6 +44,7 @@ module.exports = function (content, context) {
       this.resourcePath = resourcePath;
       this.options = {
         markdownWrapper,
+        isDemo,
       };
     })
     .use(docUtils)
@@ -63,7 +66,6 @@ module.exports = function (content, context) {
       .use(pre)
       .use(demoCompiler)
       .process(content, (err, file) => {
-        // console.log(String(file));
         callback(err, String(file));
       });
   } else {
@@ -76,7 +78,6 @@ module.exports = function (content, context) {
       .use(scanDemo(this.resourcePath))
       .use(mdCompiler)
       .process(content, (err, file) => {
-        // console.log(String(file));
         callback(err, String(file));
       });
   }

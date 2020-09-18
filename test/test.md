@@ -39,3 +39,5 @@ class Demo extends React.Component {
 
 export default Demo;
 ```
+
+<img src="./hahaha" />

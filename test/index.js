@@ -1,5 +1,5 @@
-import md from './test.demo.md';
-import demo from './demo/test.md';
+import md from './test.md';
+import demo from './demo/demo.md';
 
 console.log(md);
 console.log(demo);
