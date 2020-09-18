@@ -4,7 +4,7 @@ import visit from 'unist-util-visit';
 import ref from './ref';
 
 function createRandomImgName(src = ''): string {
-  return `img_${src.replace(/[-\\\/\.]/g, '_')}`;
+  return `img_${src.replace(/[^a-zA-Z\d-]/g, '_')}`;
 }
 
 export default function () {

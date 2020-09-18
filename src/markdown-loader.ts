@@ -17,7 +17,7 @@ import pre from './pre';
 
 function docUtils(doNotImport = false) {
   this.docUtils = new DocUtils();
-  if(!doNotImport){
+  if (!doNotImport) {
     this.docUtils.addImport('react', 'React');
     this.docUtils.addImport('react-router-dom', undefined, ['Link']);
   }
@@ -31,7 +31,7 @@ function checkIsDemo(sourcePath) {
 module.exports = function (content, context) {
   const options = loaderUtils.getOptions(this);
 
-  const { markdownWrapper } = options;
+  const { markdownWrapper, autoScanDemo = true } = options;
 
   const isDemo = checkIsDemo(this.resourcePath);
 
@@ -75,7 +75,7 @@ module.exports = function (content, context) {
       .use(pre)
       .use(id)
       .use(link)
-      .use(scanDemo(this.resourcePath))
+      .use(autoScanDemo?scanDemo(this.resourcePath):function(){})
       .use(mdCompiler)
       .process(content, (err, file) => {
         callback(err, String(file));
