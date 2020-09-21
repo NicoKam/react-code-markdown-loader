@@ -10,6 +10,8 @@ api在底部
 
 我们都知道，`Modal`组件通过它的`visible`属性，就可以控制弹窗的显示隐藏。比如下面这一段代码
 
+点击[这里](http://www.baidu.com/)打开新的连接
+
 ```jsx
 import React from "react";
 import { Modal } from "antd";

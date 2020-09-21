@@ -16,11 +16,13 @@ import raw2html from './raw2html';
 import pre from './pre';
 
 function docUtils(doNotImport = false) {
-  this.docUtils = new DocUtils();
-  if (!doNotImport) {
-    this.docUtils.addImport('react', 'React');
-    this.docUtils.addImport('react-router-dom', undefined, ['Link']);
-  }
+  return function () {
+    this.docUtils = new DocUtils();
+    if (!doNotImport) {
+      this.docUtils.addImport('react', 'React');
+      this.docUtils.addImport('react-router-dom', undefined, ['Link']);
+    }
+  };
 }
 
 function checkIsDemo(sourcePath) {
@@ -31,7 +33,7 @@ function checkIsDemo(sourcePath) {
 module.exports = function (content, context) {
   const options = loaderUtils.getOptions(this);
 
-  const { markdownWrapper, autoScanDemo = true } = options;
+  const { markdownWrapper, markdownWrapperProps = [], autoScanDemo = true } = options;
 
   const isDemo = checkIsDemo(this.resourcePath);
 
@@ -43,11 +45,12 @@ module.exports = function (content, context) {
     .use(function () {
       this.resourcePath = resourcePath;
       this.options = {
+        markdownWrapperProps,
         markdownWrapper,
         isDemo,
       };
     })
-    .use(docUtils)
+    .use(docUtils(isDemo))
     .use(function () {
       if (markdownWrapper) {
         this.docUtils.addImport(markdownWrapper, 'MarkdownWrapper');
@@ -75,7 +78,7 @@ module.exports = function (content, context) {
       .use(pre)
       .use(id)
       .use(link)
-      .use(autoScanDemo?scanDemo(this.resourcePath):function(){})
+      .use(autoScanDemo ? scanDemo(this.resourcePath) : function () {})
       .use(mdCompiler)
       .process(content, (err, file) => {
         callback(err, String(file));

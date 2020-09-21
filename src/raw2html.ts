@@ -1,17 +1,11 @@
 import fromParse5 from 'hast-util-from-parse5';
 import parse5 from 'parse5';
 import visit from 'unist-util-visit';
+import { isAbsolutePath } from './common';
 import ref from './ref';
 
 function createRandomImgName(src = ''): string {
   return `img_${src.replace(/[^a-zA-Z\d_]/g, '_')}`;
-}
-
-function isAbsolutePath(path: string = '') {
-  if (path.startsWith('http://')) return true;
-  if (path.startsWith('https://')) return true;
-  if (path.startsWith('/')) return true;
-  return false;
 }
 
 export default function () {

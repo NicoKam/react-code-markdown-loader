@@ -74,6 +74,10 @@ class DocUtils {
     this.exportDefaultStatement = exportStatement;
   };
 
+  lpushCode = (code: string) => {
+    this.code.unshift(code);
+  };
+
   pushCode = (code: string) => {
     this.code.push(code);
   };

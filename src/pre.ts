@@ -18,18 +18,20 @@ function encodeHtml(str: string = '') {
 
 export default function () {
   return (ast) => {
-    this.docUtils.addImport(slash(resolve(__dirname, 'components/Pre')), `Pre`);
-
     visit(ast, 'element', (node, i, parent) => {
       if (node.tagName === 'pre') {
+        this.docUtils.addImport(slash(resolve(__dirname, 'components/Pre')), `Pre`);
+
         node.tagName = 'Pre';
         const codeElement = node.children[0];
-        if(codeElement && codeElement.type ==='element' && codeElement.tagName === 'code'){
+        if (codeElement && codeElement.type === 'element' && codeElement.tagName === 'code') {
           const codeText = codeElement.children[0];
-          if(codeText && codeText.type === 'text'){
+          if (codeText && codeText.type === 'text') {
             codeElement.children = [];
             codeElement.properties = codeElement.properties || {};
-            codeElement.properties.dangerouslySetInnerHTML = ref(`{__html:${JSON.stringify(encodeHtml(codeText.value))}}`);
+            codeElement.properties.dangerouslySetInnerHTML = ref(
+              `{__html:${JSON.stringify(encodeHtml(codeText.value))}}`,
+            );
           }
         }
       }

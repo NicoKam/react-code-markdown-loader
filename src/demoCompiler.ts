@@ -1,6 +1,7 @@
 import { isSourceCode } from './common';
 import { toString } from 'hast-util-to-string';
 import toJSX from '@mapbox/hast-util-to-jsx';
+import DocUtils from './utils/DocUtils';
 
 function hasReactImport(code = '') {
   return /from\s+('|")react\1/.test(code);
@@ -10,6 +11,7 @@ export default function () {
   let md;
   this.Compiler = () => {
     const { demoCode } = this;
+    const docUtils: DocUtils = this.docUtils;
     let code = '';
     const allCode = demoCode
       .slice()
@@ -22,20 +24,15 @@ export default function () {
         return true;
       });
 
-    const metaCode = `export const meta = ${JSON.stringify(this.meta)};`;
-    const mdCode = `export const md = (${md});`;
-    const codeCode = `export const code = (${JSON.stringify(code)});`;
-    const allCodeCode = `export const allCode = (${JSON.stringify(
-      allCode.reverse(),
-    )});`;
     const importReact = hasReactImport(code) ? '' : "import React from 'react';";
+    docUtils.lpushCode(code);
+    docUtils.lpushCode(importReact);
+    docUtils.pushCode(`export const meta = ${JSON.stringify(this.meta)};`);
+    docUtils.pushCode(`export const md = (${md});`);
+    docUtils.pushCode(`export const code = (${JSON.stringify(code)});`);
+    docUtils.pushCode(`export const allCode = (${JSON.stringify(allCode.reverse())});`);
 
-    return `${importReact}
-${code || ''}
-${codeCode}
-${mdCode}
-${allCodeCode}
-${metaCode}`;
+    return docUtils.toString();
   };
 
   return (ast) => {

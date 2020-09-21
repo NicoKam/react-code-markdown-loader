@@ -8,6 +8,7 @@ export default () => (ast) => {
       const href = node.properties.href;
       if (/^https?:/.test(href)) {
         /* do nothing */
+        node.properties.target = '_blank';
       } else if (/^(\.|\/)/.test(href)) {
         node.tagName = 'Link'
         node.properties.to = href;
