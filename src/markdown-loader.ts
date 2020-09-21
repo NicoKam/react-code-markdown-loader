@@ -55,6 +55,7 @@ module.exports = function (content, context) {
       if (markdownWrapper) {
         this.docUtils.addImport(markdownWrapper, 'MarkdownWrapper');
       }
+      this.docUtils.pushCode(`export const resourcePath = ${JSON.stringify(slash(resourcePath))};`);
     })
     .use(markdown)
     .use(frontmatter)
