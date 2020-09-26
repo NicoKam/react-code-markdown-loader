@@ -14,6 +14,7 @@ import scanDemo from './scanDemo';
 import DocUtils from './utils/DocUtils';
 import raw2html from './raw2html';
 import pre from './pre';
+import image from './image';
 
 function docUtils(doNotImport = false) {
   return function () {
@@ -66,6 +67,7 @@ module.exports = function (content, context) {
 
     u.use(demoCode)
       .use(remark2rehype, { allowDangerousHtml: true })
+      .use(image)
       .use(raw2html)
       .use(pre)
       .use(demoCompiler)
@@ -75,6 +77,7 @@ module.exports = function (content, context) {
   } else {
     /* 普通文档的解析 */
     u.use(remark2rehype, { allowDangerousHtml: true })
+      .use(image)
       .use(raw2html)
       .use(pre)
       .use(id)
