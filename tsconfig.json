@@ -1,34 +1,43 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
-    "declaration": true,
-    "module": "commonjs",
-    "target": "ESNext",
-    "lib": ["ESNext", "dom"],
-    "sourceMap": true,
-    "jsx": "react",
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "rootDir": "./src",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
     "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": [
+      "ESNext",
+      "dom"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
     "paths": {
-      "@/*": ["src/*"],
-      "@ali-whale/*": ["packages/*/src/index"]
-    }
+      "@/*": [
+        "src/*"
+      ],
+      "@ali-whale/*": [
+        "packages/*/src/index"
+      ]
+    },
+    "rootDir": "./src",
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "ESNext"
   },
-  "include":[
-    "./src/**/*", "index.js"
-  ],
   "exclude": [
     "node_modules",
     "build",
     "scripts",
     "jest"
+  ],
+  "include": [
+    "./src/**/*",
+    "index.js"
   ]
 }
