@@ -31,7 +31,7 @@ function checkIsDemo(sourcePath) {
   return p.substr(0, p.lastIndexOf('/')).endsWith('/demo');
 }
 
-module.exports = function (content, context) {
+export default function (content, context) {
   const options = loaderUtils.getOptions(this);
 
   const { markdownWrapper, markdownWrapperProps = [], autoScanDemo = true } = options;

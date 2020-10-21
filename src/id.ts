@@ -27,6 +27,7 @@ function id() {
     let title = '';
     if (typeof meta.title === 'string') title = meta.title;
     if (meta.title && typeof meta.title['zh-CN'] === 'string') title = meta.title['zh-CN'];
+    if (typeof meta.subtitle === 'string') title += ` ${meta.subtitle}`;
 
     if (title) {
       ast.children.unshift({
