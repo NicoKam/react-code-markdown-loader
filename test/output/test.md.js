@@ -24,22 +24,22 @@ export default (props) => (<React.Fragment><h1 id="InfinitySlider%20%u8DD1%u9A6C
 </thead>
 <tbody>
 <tr>
-<td align={null}>itemWidth</td>
-<td align={null}>单个内容的宽度</td>
-<td align={null}>number</td>
-<td align={null}>200</td>
+<td align={null}><p>itemWidth</p></td>
+<td align={null}><p>单个内容的宽度</p></td>
+<td align={null}><p>number</p></td>
+<td align={null}><p>200</p></td>
 </tr>
 <tr>
-<td align={null}>data</td>
-<td align={null}>数据</td>
-<td align={null}>{"{"} width?:number {"}"}[]</td>
-<td align={null}><code>[]</code></td>
+<td align={null}><p>data</p></td>
+<td align={null}><p>数据</p></td>
+<td align={null}><p>{"{"} width?:number {"}"}[]</p></td>
+<td align={null}><p><code>[]</code></p></td>
 </tr>
 <tr>
-<td align={null}>children</td>
+<td align={null}><p>children</p></td>
 <td align={null}><p>渲染每个 item 的内容</p><p>item 为 data 迭代的内容</p><p>offset 为当前内容的偏移位置</p></td>
-<td align={null}>function(item, index, {"{"} offset, key {"}"})</td>
-<td align={null}>-</td>
+<td align={null}><p>function(item, index, {"{"} offset, key {"}"})</p></td>
+<td align={null}><p>-</p></td>
 </tr>
 </tbody>
 </table>
