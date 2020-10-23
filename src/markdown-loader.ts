@@ -15,6 +15,7 @@ import DocUtils from './utils/DocUtils';
 import raw2html from './raw2html';
 import pre from './pre';
 import image from './image';
+import fixTdBr from './fixTdBr';
 
 function docUtils(doNotImport = false) {
   return function () {
@@ -77,6 +78,7 @@ export default function (content, context) {
   } else {
     /* 普通文档的解析 */
     u.use(remark2rehype, { allowDangerousHtml: true })
+      .use(fixTdBr)
       .use(image)
       .use(raw2html)
       .use(pre)
@@ -88,4 +90,4 @@ export default function (content, context) {
         callback(err, String(file));
       });
   }
-};
+}

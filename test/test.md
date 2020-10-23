@@ -1,16 +1,29 @@
 ---
-title: this is title
-test: aaa
+title: InfinitySlider
+subtitle: 跑马灯
+menu: true
+category: general
+order: 0
 ---
 
+跑马灯组件，适合轮播图片使用。
 
-# antd-tools ModalHolder
+这个效果是模仿 [AppleTV 官网](https://www.apple.com/tv/) 的效果，同时支持手动拖拽
 
-api在底部 
+## 使用场景
 
-我们都知道，`Modal`组件通过它的`visible`属性，就可以控制弹窗的显示隐藏。比如下面这一段代码
+你可以在 首页或需要进行轮播内容展示 的场景下使用本组件。
 
-点击[这里](http://www.baidu.com/)打开新的连接
+## API
+
+### Props:
+
+| 属性      | 说明                                                                                    | 类型                                   | 默认值 |
+| --------- | --------------------------------------------------------------------------------------- | -------------------------------------- | ------ |
+| itemWidth | 单个内容的宽度                                                                          | number                                 | 200    |
+| data      | 数据                                                                                    | { width?:number }[]                    | `[]`   |
+| children  |  渲染每个 item 的内容<br>item 为 data 迭代的内容<br>offset 为当前内容的偏移位置 | function(item, index, { offset, key }) | -      |
+
 
 ```jsx
 import React from "react";
