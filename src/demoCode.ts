@@ -20,9 +20,7 @@ export default function () {
       removeIndex.push(index);
     });
 
-    removeIndex.reverse().forEach((index) => {
-      ast.children.splice(index, 1);
-    });
+
 
     const allPromise = [];
     /* 解析code语法 */
@@ -34,6 +32,8 @@ export default function () {
           if (typeof value === 'string') {
             const matched = value.match(reg);
             if (matched && matched[2]) {
+              /* 匹配到<code>语法，移除本条内容 */
+              removeIndex.push(index);
               /* 获取文件内容 */
               const srcPath = resolve(dirname(this.resourcePath), matched[2]);
               readFile(srcPath)
@@ -50,6 +50,9 @@ export default function () {
           }
         }),
       );
+    });
+    removeIndex.sort().reverse().forEach((index) => {
+      ast.children.splice(index, 1);
     });
     return Promise.all(allPromise).then(() => {});
   };

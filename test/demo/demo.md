@@ -15,3 +15,5 @@ const Demo = props => {
 
 export default Demo;
 ```
+
+<code src="../index.js" />
